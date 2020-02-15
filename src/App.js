@@ -25,6 +25,7 @@ function App() {
     const [mesajApp,setMesajApp] = useState('');
 
     const onAddNewCheltuiala=(paramCheltuialaNoua)=>{
+        console.log('onAddNewCheltuiala paramCheltuialaNoua=%o',paramCheltuialaNoua)
         const existaDeja=nomCheltuieli.filter(cheltuiala=> cheltuiala.id==paramCheltuialaNoua.id);
         if(existaDeja.length>0){
             setMesajApp('Exista deja acest id, alegeti altul');
@@ -44,10 +45,16 @@ function App() {
         setCheltuieli(cloneNomCheltuieli);
     }
 
+    const onDeleteCheltuiala=(indexForDeleting)=> {
+        const cloneNomCheltuieli = [...nomCheltuieli];
+        cloneNomCheltuieli.splice(indexForDeleting,1);
+        setCheltuieli(cloneNomCheltuieli);
+    }
+
     const ListaCheltuieli = () => (
         <div className="ListaCheltuieli">
-            {nomCheltuieli.map(function(item) {
-                return <Cheltuiala key={item.id} cheltuiala={item} changeStatus={onChangeStatus}/>;
+            {nomCheltuieli.map(function(item,pindexCheltuiala) {
+                return <Cheltuiala key={item.id} cheltuiala={item} indexInList={pindexCheltuiala} changeStatus={onChangeStatus} deleteCheltuiala={onDeleteCheltuiala}/>;
             })}
         </div>
     );

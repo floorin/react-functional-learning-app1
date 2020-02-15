@@ -5,7 +5,8 @@ function CheltuialaNoua(props) {
     const [cheltuiala, setCheltuiala] = useState(
         {
             id:1,
-            den_ro:'xx'
+            den_ro:'xx',
+            activ_y_n:'n'
         }
     );
 
@@ -21,7 +22,7 @@ function CheltuialaNoua(props) {
            alert('completeaza id');
        }else{
            props.onAddNewCheltuialaFromChild(cheltuiala);
-           setCheltuiala({id:'',den_ro:''});
+           setCheltuiala({id:'',den_ro:'',activ_y_n:'n'});
        }
     }
 
