@@ -1,41 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import About from './components/About/About'
 import Cheltuiala from './components/Cheltuiala/Cheltuiala'
 import CheltuialaNoua from "./components/CheltuialaNoua/CheltuialaNoua";
 
+const startNomCheltuieli=[
+    {
+        id:100,
+        den_ro:'Cheltuiala 1',
+        activ_y_n:'y'
+    },
+    {
+        id:200,
+        den_ro:'Cheltuiala 2',
+        activ_y_n:'y'
+    }
+]
 
 function App() {
 
-    const [nomCheltuieli, setCheltuieli] = useState(
-        [
-            {
-                id:100,
-                den_ro:'Cheltuiala 1',
-                activ_y_n:'y'
-            },
-            {
-                id:200,
-                den_ro:'Cheltuiala 2',
-                activ_y_n:'y'
-            },
-            {
-                id:300,
-                den_ro:'Cheltuiala 3',
-                activ_y_n:'n'
-            }
+    const [nomCheltuieli, setCheltuieli] = useState([] );
+    useEffect(() => setCheltuieli(startNomCheltuieli), []);
 
-        ]
-    );
+    const [mesajApp,setMesajApp] = useState('');
 
     const onAddNewCheltuiala=(paramCheltuialaNoua)=>{
-        setCheltuieli([...nomCheltuieli,paramCheltuialaNoua])
+        const existaDeja=nomCheltuieli.filter(cheltuiala=> cheltuiala.id==paramCheltuialaNoua.id);
+        if(existaDeja.length>0){
+            setMesajApp('Exista deja acest id, alegeti altul');
+        }else{
+            setCheltuieli([...nomCheltuieli,paramCheltuialaNoua]);
+            setMesajApp('');
+        }
+    }
+
+    const onChangeStatus=(paramOnChangeStatus)=>{
+        const cloneNomCheltuieli = [...nomCheltuieli];
+        cloneNomCheltuieli.forEach((cheltuiala,pindex)=>{
+            if(cheltuiala.id==paramOnChangeStatus.id){
+                cloneNomCheltuieli[pindex].activ_y_n=paramOnChangeStatus.new_status
+            }
+        });
+        setCheltuieli(cloneNomCheltuieli);
     }
 
     const ListaCheltuieli = () => (
         <div className="ListaCheltuieli">
             {nomCheltuieli.map(function(item) {
-                return <Cheltuiala key={item.id} cheltuiala={item} />;
+                return <Cheltuiala key={item.id} cheltuiala={item} changeStatus={onChangeStatus}/>;
             })}
         </div>
     );
@@ -45,6 +57,8 @@ function App() {
       <About />
       <hr />
       <CheltuialaNoua onAddNewCheltuialaFromChild={onAddNewCheltuiala} />
+      <hr />
+        {mesajApp}
       <hr />
       <ListaCheltuieli />
     </div>

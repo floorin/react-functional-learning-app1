@@ -1,7 +1,7 @@
 .form__cheltuiala__noua{
     display: flex;
     flex-direction: column;
-    background-color: burlywood;
+    background-color: azure;
     align-items: center;
     max-width: 600px;
 }
