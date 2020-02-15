@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './cheltuialanoua.css';
 
 function CheltuialaNoua(props) {
+    const [mesajButton,setMesajButton] = useState('Adauga cheltuiala in lista');
+
     const [cheltuiala, setCheltuiala] = useState(
         {
             id:1,
@@ -17,10 +19,20 @@ function CheltuialaNoua(props) {
         });
     };
 
+    useEffect(() => {
+            if (props.addingNewCheltuiala) {
+                setMesajButton('..working...please wait...');
+            } else {
+                setMesajButton('Adauga cheltuiala in lista');
+            }
+        }
+        , [props.addingNewCheltuiala]);
+
    const adaugaCheltuiala = () => {
        if(cheltuiala.id.length==0){
            alert('completeaza id');
        }else{
+           setMesajButton('...working...please wait....');
            props.onAddNewCheltuialaFromChild(cheltuiala);
            setCheltuiala({id:'',den_ro:'',activ_y_n:'n'});
        }
@@ -35,7 +47,9 @@ function CheltuialaNoua(props) {
         <label>
             Denumire cheltuiala:<input type="text" name="den_ro" value={cheltuiala.den_ro} onChange={updateCheltuiala} />
         </label>
-            <button className="btn" onClick={adaugaCheltuiala}>Adauga cheltuiala in lista</button>
+            {!props.addingNewCheltuiala?
+            <button className="btn" onClick={adaugaCheltuiala}>{mesajButton}</button>
+                :<span>{mesajButton}</span>}
         </div>
     </>;
 }

@@ -20,18 +20,23 @@ const startNomCheltuieli=[
 function App() {
 
     const [nomCheltuieli, setCheltuieli] = useState([] );
+    const [addingNewCheltuiala, setAddingNewCheltuiala] = useState(false);
+
     useEffect(() => setCheltuieli(startNomCheltuieli), []);
 
     const [mesajApp,setMesajApp] = useState('');
 
     const onAddNewCheltuiala=(paramCheltuialaNoua)=>{
-        console.log('onAddNewCheltuiala paramCheltuialaNoua=%o',paramCheltuialaNoua)
+        setAddingNewCheltuiala(true);
         const existaDeja=nomCheltuieli.filter(cheltuiala=> cheltuiala.id==paramCheltuialaNoua.id);
         if(existaDeja.length>0){
             setMesajApp('Exista deja acest id, alegeti altul');
+            setAddingNewCheltuiala(false);
         }else{
-            setCheltuieli([...nomCheltuieli,paramCheltuialaNoua]);
             setMesajApp('');
+            setTimeout(function(){ setCheltuieli([...nomCheltuieli,paramCheltuialaNoua]);
+                                            setAddingNewCheltuiala(false);
+                                            }, 1000);
         }
     }
 
@@ -63,7 +68,7 @@ function App() {
     <div className="App">
       <About />
       <hr />
-      <CheltuialaNoua onAddNewCheltuialaFromChild={onAddNewCheltuiala} />
+      <CheltuialaNoua onAddNewCheltuialaFromChild={onAddNewCheltuiala} addingNewCheltuiala={addingNewCheltuiala} />
       <hr />
         {mesajApp}
       <hr />
