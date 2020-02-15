@@ -1,0 +1,11 @@
+.form__cheltuiala__noua{
+    display: flex;
+    flex-direction: column;
+    background-color: burlywood;
+    align-items: center;
+    max-width: 600px;
+}
+
+.btn{
+    max-width: 200px;
+}
