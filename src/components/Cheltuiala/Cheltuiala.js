@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../Cheltuiala/cheltuiala.css";
-
+import { useSelector,useDispatch } from "react-redux";
 
 function Cheltuiala(props) {
+    const dispatch = useDispatch();
+    const counter = useSelector(state => state.counter);
     const [checked, setChecked] = useState(props.cheltuiala.activ_y_n=='y')
     const handleChangeStatus = () => {
         if(props.cheltuiala.activ_y_n === 'n'){
@@ -24,6 +26,7 @@ function Cheltuiala(props) {
         <div>
             <button onClick={deleteCheltuiala}>Sterge</button>
         </div>
+        <h5>the counter in store is :{counter.num}</h5>
     </div>;
 }
 export default Cheltuiala;

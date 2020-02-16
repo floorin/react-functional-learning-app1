@@ -1,7 +1,15 @@
 .App {
   text-align: center;
+  border: 2px solid blueviolet;
 }
 
 .ListaCheltuieli{
   display: flex;
+  flex-wrap: wrap;
+}
+
+.flex2Columns{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

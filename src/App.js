@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector,useDispatch } from "react-redux";
 import './App.css';
 import About from './components/About/About'
+import EditMyName from './components/EditMyName/EditMyName'
 import Cheltuiala from './components/Cheltuiala/Cheltuiala'
 import CheltuialaNoua from "./components/CheltuialaNoua/CheltuialaNoua";
 
@@ -18,6 +20,9 @@ const startNomCheltuieli=[
 ]
 
 function App() {
+    const counter = useSelector(state => state.counter);
+    const currentUser = useSelector(state => state.currentUser);
+    const dispatch = useDispatch();
 
     const [nomCheltuieli, setCheltuieli] = useState([] );
     const [addingNewCheltuiala, setAddingNewCheltuiala] = useState(false);
@@ -65,15 +70,29 @@ function App() {
     );
 
   return (
-    <div className="App">
-      <About />
-      <hr />
-      <CheltuialaNoua onAddNewCheltuialaFromChild={onAddNewCheltuiala} addingNewCheltuiala={addingNewCheltuiala} />
-      <hr />
-        {mesajApp}
-      <hr />
-      <ListaCheltuieli />
-    </div>
+            <div className="App">
+                <h2 style={{color: "blueviolet"}}>Here is the main app, the variable in store has value: {counter.num}, and the user name is {currentUser.lastName} {currentUser.firstName}</h2>
+                <button
+                    onClick={() =>
+                        dispatch({
+                            type: "INCREMENT",
+                            step: 1
+                        })
+                    }
+                >
+                    Increment
+                </button>
+              <div className="flex2Columns">
+                  <About />
+                  <EditMyName />
+              </div>
+              <hr />
+              <CheltuialaNoua onAddNewCheltuialaFromChild={onAddNewCheltuiala} addingNewCheltuiala={addingNewCheltuiala} />
+              <hr />
+                {mesajApp}
+              <hr />
+              <ListaCheltuieli />
+            </div>
   );
 }
 
