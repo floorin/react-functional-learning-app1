@@ -39,7 +39,7 @@ function App() {
             setAddingNewCheltuiala(false);
         }else{
             setMesajApp('');
-            setTimeout(function(){ setCheltuieli([...nomCheltuieli,paramCheltuialaNoua]);
+            setTimeout(function(){ setCheltuieli([paramCheltuialaNoua,...nomCheltuieli]);
                                             setAddingNewCheltuiala(false);
                                             }, 1000);
         }
@@ -63,6 +63,9 @@ function App() {
 
     const ListaCheltuieli = () => (
         <div className="ListaCheltuieli">
+            {addingNewCheltuiala?
+            <div>Adding cheltuiala noua...</div>
+                :null}
             {nomCheltuieli.map(function(item,pindexCheltuiala) {
                 return <Cheltuiala key={item.id} cheltuiala={item} indexInList={pindexCheltuiala} changeStatus={onChangeStatus} deleteCheltuiala={onDeleteCheltuiala}/>;
             })}

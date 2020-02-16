@@ -24,7 +24,7 @@ function About() {
 
 return <>
             <div className={styles.card}>
-                <h2 className="about__text--big">Hi, I'm the "About" component!</h2>
+                <h2 className="about__text--big">I'm the "About" component!</h2>
                 <h4 className="about__text--big">{currentUser.lastName} {currentUser.firstName}</h4>
                 <h5 className={styles.about}>{mesaj}</h5>
                 <button onClick={increaseStepInSore}>Click me!</button>

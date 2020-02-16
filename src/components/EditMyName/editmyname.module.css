@@ -4,6 +4,7 @@
 }
 .card{
     background-color: chartreuse;
+    border: 1px solid darkolivegreen;
     max-width: 200px;
 }
 
